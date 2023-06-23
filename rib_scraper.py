@@ -243,7 +243,7 @@ class jsonParser:
             'parentEvent': self.form['series']['parentEventName'],
             'eventName': self.form['series']['eventName'],
             'eventTime': self.form['series']['startDate'],
-            'eventRegion': regionDict[self.form['series']['eventRegionId']],
+            'eventRegion': regionDict.get(self.form['series']['eventRegionId'], None),
             'bestOf': self.form['series']['bestOf'],
             'stage': self.form['series']['stage'],
             'bracket': self.form['series']['bracket'],
@@ -418,4 +418,4 @@ class jsonParser:
         return output
 
 driver = resultsDriver('pro_val_matches.csv')
-driver.get_series()
+driver.get_series(275)
