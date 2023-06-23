@@ -53,7 +53,7 @@ class resultsDriver:
         self.fileName = fileName
         if (self.fileName[-4:] != '.csv'):
             self.fileName += '.csv'
-        self.numMatches = numSeries
+        self.numSeries = numSeries
 
         # check if the file exists
         self.fileExists = os.path.isfile(fileName)
@@ -335,6 +335,8 @@ class jsonParser:
         playerData = self.player_stats_data()
 
         for num, round in enumerate(rounds):
+            if (round['id']):
+                round['roundId'] = round.pop('id')
             if (playerData[0][num]):
                 round['team1Players'] = playerData[0][num]
             else: 
