@@ -98,6 +98,9 @@ class resultsDriver:
 
         countSeries = startNum-1
         while (countSeries <= self.numSeries):
+            # wait for page to load before pulling html
+            element = WebDriverWait(driver,10).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='MuiBox-root css-1iqrfdr']/a[23]")))
+
             results_page = driver.page_source
             result_soup = BeautifulSoup(results_page, features='html.parser') 
             series_list = result_soup.find_all('div', class_='MuiBox-root css-7erhtc')[0:20]
@@ -106,7 +109,7 @@ class resultsDriver:
                 print(countSeries)
                 self.process_series(series)
 
-            element = driver.find_element(By.XPATH, "//div[@class='MuiBox-root css-1iqrfdr']/a[23]")
+            #element = driver.find_element(By.XPATH, "//div[@class='MuiBox-root css-1iqrfdr']/a[23]")
             sleep(1)
             driver.execute_script("arguments[0].scrollIntoView(true);", element)
             sleep(1)
@@ -418,4 +421,4 @@ class jsonParser:
         return output
 
 driver = resultsDriver('pro_val_matches.csv')
-driver.get_series(275)
+driver.get_series()
